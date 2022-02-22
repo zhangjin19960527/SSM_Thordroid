@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sdu.edu.dao.APKdao">
+
+    <insert id="addAPK" parameterType="sdu.edu.pojo.APK" >
+        insert into apk_db(MD5,name,size,status,RiskLevel,API_score,permission_score,behavior_scores,permission,Risk_Function,UploadDate,packagename,Activities,MinSdkVersion,TelephonyIdentifiersLeakage,DeviceSettingsHarvesting,LocationLookup,ConnectionInterfacesExfiltration,TelephonyServicesAbuse,PimDataLeakage,SuspiciousConnectionEstablishment,AudioVideoEavesdropping,CodeExecution)
+        values (#{MD5},#{name},#{size},#{status},#{RiskLevel},#{API_score},#{permission_score},#{behavior_scores},
+
+        <foreach collection="permission" separator="," item="items1">
+            #{items1}
+        </foreach>,
+        <foreach collection="Risk_Function" separator="," item="items2">
+            #{items2}
+        </foreach>,
+        #{UploadDate},#{packagename},
+        <foreach collection="Activities" separator="," item="items3">
+            #{items3}
+        </foreach>,
+        #{MinSdkVersion},
+        <foreach collection="TelephonyIdentifiersLeakage" separator="," item="items4">
+            #{items4}
+        </foreach>,
+        <foreach collection="DeviceSettingsHarvesting" separator="," item="items5">
+            #{items5}
+        </foreach>,
+        <foreach collection="LocationLookup" separator="," item="items6">
+            #{items6}
+        </foreach>,
+        <foreach collection="ConnectionInterfacesExfiltration" separator="," item="items7">
+            #{items7}
+        </foreach>,
+        <foreach collection="TelephonyServicesAbuse" separator="," item="items8">
+            #{items8}
+        </foreach>,
+        <foreach collection="PimDataLeakage" separator="," item="items9">
+            #{items9}
+        </foreach>,
+        <foreach collection="SuspiciousConnectionEstablishment" separator="," item="items10">
+            #{items10}
+        </foreach>,
+        <foreach collection="AudioVideoEavesdropping" separator="," item="items11">
+            #{items11}
+        </foreach>,
+        <foreach collection="CodeExecution" separator="," item="items12">
+            #{items12}
+        </foreach>)
+
+    </insert>
+
+    <select id="getAPK" parameterType="string"
+            resultType="sdu.edu.pojo.APK">
+        select * from apk_db where MD5=#{MD5}
+    </select>
+
+    <select id="getallAPK"
+            resultType="sdu.edu.pojo.APK">
+        select * from apk_db
+    </select>
+
+    <resultMap type="sdu.edu.pojo.APK" id="getAllInfFromAPK">
+        <id column="MD5" property="MD5" />
+        <result column="name" property="name" />
+        <result column="size" property="size"  />
+        <result column="RiskLevel" property="RiskLevel"  />
+        <result column="API_score" property="API_score"  />
+        <result column="permission_score" property="permission_score"  />
+        <result column="behavior_scores" property="behavior_scores"  />
+        <result column="UploadDate" property="UploadDate"  />
+        <result column="status" property="status"  />
+        <result column="packagename" property="packagename"  />
+        <result column="MinSdkVersion" property="MinSdkVersion"  />
+
+        <collection property="permission" ofType="java.lang.String">
+            <constructor>
+                <arg column="permission"/>
+            </constructor>
+        </collection>
+        <collection property="Risk_Function" ofType="java.lang.String">
+            <constructor>
+                <arg column="Risk_Function"/>
+            </constructor>
+        </collection>
+        <collection property="Activities" ofType="java.lang.String">
+            <constructor>
+                <arg column="Activities"/>
+            </constructor>
+        </collection>
+        <collection property="TelephonyIdentifiersLeakage" ofType="java.lang.String">
+            <constructor>
+                <arg column="TelephonyIdentifiersLeakage"/>
+            </constructor>
+        </collection>
+        <collection property="DeviceSettingsHarvesting" ofType="java.lang.String">
+            <constructor>
+                <arg column="DeviceSettingsHarvesting"/>
+            </constructor>
+        </collection>
+        <collection property="LocationLookup" ofType="java.lang.String">
+            <constructor>
+                <arg column="LocationLookup"/>
+            </constructor>
+        </collection>
+        <collection property="ConnectionInterfacesExfiltration" ofType="java.lang.String">
+            <constructor>
+                <arg column="ConnectionInterfacesExfiltration"/>
+            </constructor>
+        </collection>
+        <collection property="TelephonyServicesAbuse" ofType="java.lang.String">
+            <constructor>
+                <arg column="TelephonyServicesAbuse"/>
+            </constructor>
+        </collection>
+        <collection property="PimDataLeakage" ofType="java.lang.String">
+            <constructor>
+                <arg column="PimDataLeakage"/>
+            </constructor>
+        </collection>
+        <collection property="SuspiciousConnectionEstablishment" ofType="java.lang.String">
+            <constructor>
+                <arg column="SuspiciousConnectionEstablishment"/>
+            </constructor>
+        </collection>
+        <collection property="AudioVideoEavesdropping" ofType="java.lang.String">
+            <constructor>
+                <arg column="AudioVideoEavesdropping"/>
+            </constructor>
+        </collection>
+        <collection property="CodeExecution" ofType="java.lang.String">
+            <constructor>
+                <arg column="CodeExecution"/>
+            </constructor>
+        </collection>
+
+
+    </resultMap>
+    <select id="queryAPK" parameterType="string" resultMap="getAllInfFromAPK">
+
+        select * from apk_db where MD5=#{MD5}
+    </select>
+
+<!--    <insert id="addAPK2" parameterType="sdu.edu.pojo.APK" >-->
+<!--        insert into apk_db(MD5,name,size,status,RiskLevel,API_score,permission_score,behavior_scores,permission,Risk_Function,UploadDate,packagename,Activities,MinSdkVersion,TelephonyIdentifiersLeakage,DeviceSettingsHarvesting,LocationLookup,ConnectionInterfacesExfiltration,TelephonyServicesAbuse,PimDataLeakage,SuspiciousConnectionEstablishment,AudioVideoEavesdropping,CodeExecution)-->
+<!--        values(#{MD5},#{name},#{size},#{status},#{RiskLevel},#{API_score},#{permission_score},#{behavior_scores},#{permission},#{Risk_Function},#{UploadDate},#{packagename},#{Activities},#{MinSdkVersion},#{TelephonyIdentifiersLeakage},#{DeviceSettingsHarvesting},#{LocationLookup},#{ConnectionInterfacesExfiltration},#{TelephonyServicesAbuse},#{PimDataLeakage},#{SuspiciousConnectionEstablishment},#{AudioVideoEavesdropping},#{CodeExecution})-->
+
+<!--    </insert>-->
+
+
+</mapper>
